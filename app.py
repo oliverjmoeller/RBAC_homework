@@ -9,18 +9,23 @@ from flask_login import LoginManager, UserMixin, current_user, login_user, logou
 from functools import wraps
 
 import pymysql
-import secrets
+#import secrets
 
 
-conn = "mysql+pymysql://{0}:{1}@{2}/{3}".format(secrets.dbuser, secrets.dbpass, secrets.dbhost, secrets.dbname)
+#conn = "mysql+pymysql://{0}:{1}@{2}/{3}".format(secrets.dbuser, secrets.dbpass, secrets.dbhost, secrets.dbname)
 
 # Open database connection
 #dbhost = secrets.dbhost
 #dbuser = secrets.dbuser
 #dbpass = secrets.dbpass
 #dbname = secrets.dbname
+dbuser = os.environ.get('DBUSER')
+dbpass = os.environ.get('DBPASS')
+dbhost = os.environ.get('DBHOST')
+dbname = os.environ.get('DBNAME')
 
-#db = pymysql.connect(dbhost, dbuser, dbpass, dbname)
+
+db = pymysql.connect(dbhost, dbuser, dbpass, dbname)
 
 app = Flask(__name__)
 
@@ -30,8 +35,8 @@ login.login_message_category = 'danger' # sets flash category for the default me
 
 
 app.config['SECRET_KEY']='SuperSecretKey'
-# import os
-# = os.environ.get('SECRET_KEY')
+import os
+ = os.environ.get('SECRET_KEY')
 
 
 # Prevent --> pymysql.err.OperationalError) (2006, "MySQL server has gone away (BrokenPipeError(32, 'Broken pipe')
@@ -114,7 +119,7 @@ ACCESS = {
 }
 
 class User(UserMixin, db.Model):
-    __tablename__ = 'users'
+    __tablename__ = 'omoeller_users'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
     email = db.Column(db.String(100))
@@ -132,7 +137,6 @@ class User(UserMixin, db.Model):
 
     def is_admin(self):
         return self.access == ACCESS['admin']
-
     def is_user(self):
         return self.access == ACCESS['user']
 
@@ -347,8 +351,20 @@ def new_user():
 
     return render_template('new_user.html',  pageTitle='New User | My Flask App', form=form)
 
+#om_guest_page
+@app.route('/om_guest_page')
+def om_guest_page():
+    return render_template('om_guest_page.html', pageTitle='Guest Page')
 
+#om_user_page
+@app.route('/om_user_page')
+def om_user_page():
+    return render_template('om_user_page.html', pageTitle='User Page')
 
+#om_admin_page
+@app.route('/om_admin_page')
+def om_admin_page():
+    return render_template('om_admin_page.html', pageTitle='User Page')
 
 if __name__ == '__main__':
     app.run(debug=True)
