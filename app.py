@@ -19,7 +19,10 @@ import pymysql
 #dbpass = secrets.dbpass
 #dbname = secrets.dbname
 
-
+dbuser = os.environ.get('DBUSER')
+dbpass = os.environ.get('DBPASS')
+dbhost = os.environ.get('DBHOST')
+dbname = os.environ.get('DBNAME')
 db = pymysql.connect(dbhost, dbuser, dbpass, dbname)
 
 app = Flask(__name__)
@@ -31,10 +34,7 @@ login.login_message_category = 'danger' # sets flash category for the default me
 
 app.config['SECRET_KEY']='SuperSecretKey'
 import os
-dbuser = os.environ.get('DBUSER')
-dbpass = os.environ.get('DBPASS')
-dbhost = os.environ.get('DBHOST')
-dbname = os.environ.get('DBNAME')
+
 
 
 # Prevent --> pymysql.err.OperationalError) (2006, "MySQL server has gone away (BrokenPipeError(32, 'Broken pipe')
