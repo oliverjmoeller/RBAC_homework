@@ -7,7 +7,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.urls import url_parse
 from flask_login import LoginManager, UserMixin, current_user, login_user, logout_user, login_required
 from functools import wraps
-import SQLAlchemy
 import pymysql
 #import secrets
 
