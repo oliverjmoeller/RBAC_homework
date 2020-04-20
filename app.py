@@ -9,6 +9,7 @@ from flask_login import LoginManager, UserMixin, current_user, login_user, logou
 from functools import wraps
 import pymysql
 #import secrets
+import os
 
 
 #conn = "mysql+pymysql://{0}:{1}@{2}/{3}".format(secrets.dbuser, secrets.dbpass, secrets.dbhost, secrets.dbname)
@@ -33,7 +34,7 @@ login.login_message_category = 'danger' # sets flash category for the default me
 
 
 app.config['SECRET_KEY']='SuperSecretKey'
-import os
+
 
 
 
