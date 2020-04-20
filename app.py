@@ -18,12 +18,12 @@ import pymysql
 #dbuser = secrets.dbuser
 #dbpass = secrets.dbpass
 #dbname = secrets.dbname
-
+conn = "mysql+pymysql://{0}:{1}@{2}/{3}".format(dbuser, dbpass, dbhost, dbname)
 dbuser = os.environ.get('DBUSER')
 dbpass = os.environ.get('DBPASS')
 dbhost = os.environ.get('DBHOST')
 dbname = os.environ.get('DBNAME')
-db = pymysql.connect(dbhost, dbuser, dbpass, dbname)
+#db = pymysql.connect(dbhost, dbuser, dbpass, dbname)
 
 app = Flask(__name__)
 
